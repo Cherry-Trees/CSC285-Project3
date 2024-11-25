@@ -131,12 +131,10 @@ int main() {
         // Iterate through airports adj to x that haven't been visited.
         for (auto &e : graph[x->name].adj) {
             Vertex *v = &graph[e.to]; // Get pointer to the vertex for readability.
-            if (!visited.contains(v->index)) { 
-                if (x->cost + e.weight < v->cost) {
-                    v->cost = x->cost + e.weight;
-                    v->prev = x; // Link the adj vertex v to x.
-                    heap.decrease_key(v->node, v->cost); // Decrease adj key in the heap.
-                }
+            if (!visited.contains(v->index) && (x->cost + e.weight < v->cost)) { 
+                v->cost = x->cost + e.weight;
+                v->prev = x; // Link the adj vertex v to x.
+                heap.decrease_key(v->node, v->cost); // Decrease adj key in the heap.
             }
         }
     }
